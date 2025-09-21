@@ -11,6 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: read
+
     steps:
       - uses: actions/checkout@v4
 
@@ -23,8 +24,10 @@ jobs:
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
 
-      - name: Setup Gradle
+      - name: Setup Gradle (use Gradle 7.6.4 for compatibility)
         uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: '7.6.4'
 
       - name: Build with Gradle Wrapper
         run: ./gradlew build
@@ -33,6 +36,7 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: write
+
     steps:
       - uses: actions/checkout@v4
 
@@ -44,3 +48,5 @@ jobs:
 
       - name: Generate and submit dependency graph
         uses: gradle/actions/dependency-submission@v4
+        with:
+          gradle-version: '7.6.4'
